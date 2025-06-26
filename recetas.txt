@@ -1,0 +1,20 @@
+Tortilla: huevo,patata,aceite,sal
+Ensalada: lechuga,tomate,aceite,sal
+Sándwich: pan,queso,jamon
+Pasta Alfredo: pasta,nata,queso,ajo
+Batido de plátano: leche,platano,azucar
+Pizza Margarita: harina,queso,tomate,sal
+Panqueques: harina,huevo,leche,azucar
+Huevos revueltos: huevo,leche,sal
+Café con leche: cafe,leche,azucar
+Tostadas: pan,mantequilla
+Gazpacho: tomate,pepino,aceite,sal,ajo
+Arroz blanco: arroz,agua,sal,aceite
+Yogur con frutas: yogur,fresa,platano,azucar
+Puré de patata: patata,mantequilla,sal,leche
+Quesadillas: tortilla,queso,pollo
+Bocadillo vegetal: pan,lechuga,tomate,queso
+Tarta de manzana: manzana,harina,huevo,azucar
+Sopa de fideos: agua,fideos,zanahoria,sal
+Té con limón: te,limon,azucar
+Batido verde: espinaca,platano,agua
