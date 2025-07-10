@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\luisd\Desktop\ChefVirtual\build\CMakeFiles\1e5479f6311cc6e53083f1a76cf2bc9c\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E5346C13-AAA2-3B04-A001-87E36E2BE40C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

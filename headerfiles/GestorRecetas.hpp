@@ -1,24 +1,31 @@
-#ifndef GESTORRECETAS_HPP
-#define GESTORRECETAS_HPP
+#ifndef GESTOR_RECETAS_HPP
+#define GESTOR_RECETAS_HPP
 
 #include "Receta.hpp"
 #include <vector>
 #include <string>
+#include <set>
 
-// Esta clase se encarga de manejar todas las recetas
 class GestorRecetas {
 private:
-    std::vector<Receta> recetas; // Aqui se guardan todas las recetas cargadas
+    std::vector<Receta> recetas;                   // Lista de recetas cargadas desde el archivo
+    std::set<std::string> ingredientesDisponibles; // Ingredientes que el usuario ha añadido
 
 public:
-    // Carga las recetas desde un archivo
+    // Cargar recetas desde archivo
     void cargarRecetasDesdeArchivo(const std::string& nombreArchivo);
 
-    // Busca las recetas que se pueden preparar con los ingredientes que hay
-    std::vector<Receta> buscarRecetas(const std::set<std::string>& disponibles) const;
+    // Mostrar recetas que se pueden preparar con los ingredientes ingresados
+    void mostrarRecetasDisponibles() const;
 
-    // Muestra en consola las recetas que se pueden hacer
-    void mostrarRecetasDisponibles(const std::set<std::string>& disponibles) const;
+    // Añadir un ingrediente que el usuario ha puesto
+    void agregarIngredienteDisponible(const std::string& ingrediente);
+
+    // Limpiar todos los ingredientes disponibles añadidos por el usuario
+    void limpiarIngredientesDisponibles();
+
+    // Método interno para buscar recetas posibles según los ingredientes
+    std::vector<Receta> buscarRecetas() const;
 };
 
 #endif

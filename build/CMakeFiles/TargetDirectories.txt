@@ -1,0 +1,3 @@
+C:/Users/luisd/Desktop/ChefVirtual/build/CMakeFiles/ChefVirtual.dir
+C:/Users/luisd/Desktop/ChefVirtual/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/luisd/Desktop/ChefVirtual/build/CMakeFiles/ZERO_CHECK.dir

@@ -1,0 +1,10 @@
+^C:\USERS\LUISD\DESKTOP\CHEFVIRTUAL\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/luisd/Desktop/ChefVirtual -BC:/Users/luisd/Desktop/ChefVirtual/build --check-stamp-file C:/Users/luisd/Desktop/ChefVirtual/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

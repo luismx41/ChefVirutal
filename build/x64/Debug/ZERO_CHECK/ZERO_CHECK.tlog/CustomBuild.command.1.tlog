@@ -1,0 +1,10 @@
+^C:\USERS\LUISD\DESKTOP\CHEFVIRTUAL\BUILD\CMAKEFILES\1E5479F6311CC6E53083F1A76CF2BC9C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/luisd/Desktop/ChefVirtual -BC:/Users/luisd/Desktop/ChefVirtual/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/luisd/Desktop/ChefVirtual/build/ChefVirtual.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

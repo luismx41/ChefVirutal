@@ -1,68 +1,78 @@
 #include "../headerfiles/GestorRecetas.hpp"
-#include "../headerfiles/Receta.hpp"
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 
-// Esta funcion lee el archivo de recetas y guarda cada linea como una receta
+// Cargar recetas desde archivo
 void GestorRecetas::cargarRecetasDesdeArchivo(const std::string& nombreArchivo) {
     std::ifstream archivo(nombreArchivo);
-    std::string linea;
+    if (!archivo.is_open()) {
+        std::cout << "No se pudo abrir el archivo de recetas." << std::endl;
+        return;
+    } else {
+        std::cout << "Archivo abierto correctamente." << std::endl;
+    }
 
-    while (std::getline(archivo, linea)) {
+    std::string linea;
+    while (getline(archivo, linea)) {
         std::stringstream ss(linea);
         std::string nombre;
-        std::getline(ss, nombre, ':'); // Separa el nombre de los ingredientes
+        if (!getline(ss, nombre, ':')) continue;
 
-        std::string ingrediente;
+        std::string ingredientesStr;
+        if (!getline(ss, ingredientesStr)) continue;
+
         std::set<std::string> ingredientes;
-
-        // Lee todos los ingredientes separados por coma
-        while (std::getline(ss, ingrediente, ',')) {
-            // Quita espacios al inicio y al final
-            ingrediente.erase(0, ingrediente.find_first_not_of(" \t"));
-            ingrediente.erase(ingrediente.find_last_not_of(" \t") + 1);
-
-            // Pasa todo a minusculas para que no haya problemas al comparar
-            std::transform(ingrediente.begin(), ingrediente.end(), ingrediente.begin(), ::tolower);
-
+        std::string ingrediente;
+        std::stringstream ssIngredientes(ingredientesStr);
+        while (getline(ssIngredientes, ingrediente, ',')) {
+            ingrediente.erase(remove_if(ingrediente.begin(), ingrediente.end(), ::isspace), ingrediente.end());
+            transform(ingrediente.begin(), ingrediente.end(), ingrediente.begin(), ::tolower);
             ingredientes.insert(ingrediente);
         }
 
-        // Crea una receta y la añade a la lista
         recetas.emplace_back(nombre, ingredientes);
     }
+
+    archivo.close();
+    std::cout << "Total de recetas cargadas: " << recetas.size() << std::endl;
 }
 
-// Esta funcion compara los ingredientes que tiene el usuario con cada receta
-// y devuelve solo las que puede hacer completas
-std::vector<Receta> GestorRecetas::buscarRecetas(const std::set<std::string>& disponibles) const {
+// Agregar ingrediente del usuario
+void GestorRecetas::agregarIngredienteDisponible(const std::string& ingrediente) {
+    std::string limpio = ingrediente;
+    transform(limpio.begin(), limpio.end(), limpio.begin(), ::tolower);
+    ingredientesDisponibles.insert(limpio);
+}
+
+// Limpiar todos los ingredientes ingresados
+void GestorRecetas::limpiarIngredientesDisponibles() {
+    ingredientesDisponibles.clear();
+}
+
+// Buscar recetas que se pueden hacer con los ingredientes disponibles
+std::vector<Receta> GestorRecetas::buscarRecetas() const {
     std::vector<Receta> posibles;
-
     for (const auto& receta : recetas) {
-        bool puedePreparar = true;
-
-        // Recorremos los ingredientes de la receta y verificamos si todos están disponibles
-        for (const auto& ing : receta.getIngredientes()) {
-            if (disponibles.find(ing) == disponibles.end()) {
-                puedePreparar = false; // si falta uno, ya no vale
+        std::set<std::string> ing = receta.getIngredientes();
+        bool disponible = true;
+        for (const auto& i : ing) {
+            if (ingredientesDisponibles.find(i) == ingredientesDisponibles.end()) {
+                disponible = false;
                 break;
             }
         }
-
-        if (puedePreparar) {
+        if (disponible) {
             posibles.push_back(receta);
         }
     }
-
     return posibles;
 }
 
-// Muestra en consola las recetas que si se pueden hacer
-void GestorRecetas::mostrarRecetasDisponibles(const std::set<std::string>& disponibles) const {
-    auto posibles = buscarRecetas(disponibles);
-
+// Mostrar recetas disponibles
+void GestorRecetas::mostrarRecetasDisponibles() const {
+    std::vector<Receta> posibles = buscarRecetas();
     if (posibles.empty()) {
         std::cout << "No hay recetas disponibles con los ingredientes ingresados.\n";
     } else {
